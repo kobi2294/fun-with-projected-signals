@@ -11,10 +11,8 @@ export const DataStore = signalStore(
         sum: computed(() => store.x() + store.y())
     })),
     withMethods(store => ({
-        setSum(sum: number) {
-            updateState(store, 'set Sum', state => ({
-                y: sum - state.x,
-            }));
+        setXY(x: number, y: number) {
+            updateState(store, 'set XY', { x, y });
         }
     }))
 )

@@ -8,4 +8,11 @@
   {{projected() | json}}
 </pre>
 
-<input type="number" [(ngModel)]="projected">
+<div class="field">
+  <label>X:</label>
+  <input type="number" [field]="form.x">
+</div>
+<div class="field">
+  <label>Y:</label>
+  <input type="number" [field]="form.y">
+</div>

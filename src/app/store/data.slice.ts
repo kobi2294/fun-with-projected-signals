@@ -4,6 +4,6 @@ export interface DataSlice {
 }
 
 export const initialDataSlice: DataSlice = {
-    x: 20,
-    y: 22
+    x: 5,
+    y: 5
 };

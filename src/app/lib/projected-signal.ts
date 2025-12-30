@@ -1,4 +1,4 @@
-import { computed } from "@angular/core";
+import { computed, WritableSignal } from "@angular/core";
 import { ProjectedSignal, ProjectedSignalOptions } from "./projected-signal.types";
 import { SIGNAL } from "@angular/core/primitives/signals";
 
@@ -15,7 +15,7 @@ export function projectedSignal<T>(options: ProjectedSignalOptions<T>): Projecte
                 options.update(newValue);
             }, 
             asReadonly: () => internalSignal
-        }
+        } as WritableSignal<T>
     );
     return res;
 }
