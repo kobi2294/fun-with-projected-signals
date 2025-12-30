@@ -23,6 +23,7 @@
   "private": true,
   "packageManager": "npm@10.4.0",
   "dependencies": {
+    "@angular-architects/ngrx-toolkit": "^20.5.0",
     "@angular/common": "^21.0.0",
     "@angular/compiler": "^21.0.0",
     "@angular/core": "^21.0.0",
@@ -40,5 +41,12 @@
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
+  },
+  "overrides": {
+    "@angular-architects/ngrx-toolkit": {
+      "@ngrx/signals": "^21.0.1",
+      "@angular/common": "^21.0.0",
+      "@angular/core": "^21.0.0"
+    }
   }
 }
