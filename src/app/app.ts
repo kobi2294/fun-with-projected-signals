@@ -16,6 +16,7 @@ export class App {
   readonly store = inject(DataStore);
 
   readonly data = computed(() => getState(this.store));
+  
   readonly projected = projectedSignal({
     computation: () => this.data(),
     update: newVal => this.store.setXY(newVal.x, newVal.y)
