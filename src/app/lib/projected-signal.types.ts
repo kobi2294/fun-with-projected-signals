@@ -1,4 +1,4 @@
-import { Signal, WritableSignal } from "@angular/core";
+import { WritableSignal } from "@angular/core";
 
 export interface ProjectedSignal<T> extends WritableSignal<T> {
 }
