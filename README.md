@@ -1,59 +1,57 @@
-# FunWithProjectedSignals
+# Projected Signal - Signal Store to Signal Forms Bridge
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
+A utility that bridges **Signal Store** state with **Signal Forms** while maintaining **unidirectional data flow** and **state machine semantics**.
 
-## Development server
+## The Problem
 
-To start a local development server, run:
+Directly binding forms to store signals bypasses store methods, breaking devtools logging, custom logic execution, and atomic updates.
 
-```bash
-ng serve
+## The Solution
+
+`projectedSignal` routes all form updates through store methods instead of direct mutations:
+
+```typescript
+export interface ProjectedSignal<T> extends WritableSignal<T> {}
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Example
 
-## Code scaffolding
+Create a projected signal that bridges store to form:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+```typescript
+readonly projected = projectedSignal({
+  computation: () => // ...value computed from store,
+  update: newVal => // ...call store methods to update state
+});
 
-```bash
-ng generate component component-name
+// since ProjectedSignal extends WritableSignal, it can be used directly in forms
+readonly form = form(this.projected, path => {
+  max(path.x, 20), max(path.y, 20)
+});
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+All form updates now go through `store.setXY()` instead of mutating signal state directly.
 
-```bash
-ng generate --help
-```
+## Data Flow
 
-## Building
+Form Update → `projectedSignal.set()` → `store.setXY()` → Store State Changes → Devtools Logs → UI Updates
 
-To build the project run:
+## Key Benefits
 
-```bash
-ng build
-```
+1. **Unidirectional Data Flow** - Updates always go through store methods
+2. **State Machine Semantics** - Atomic multi-value updates, custom logic, predictable transitions
+3. **Devtools Integration** - All changes logged and debuggable
+4. **Minimal Boilerplate** - Single utility eliminates bridge code
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+# My courses in Udemy
+### [Modern Angular with Signals - The missing guide](https://www.udemy.com/course/modern-angular-with-signals-the-missing-guide/?couponCode=MISSING_GUIDE_12)
 
-## Running unit tests
+[![Modern Angular with Signals - The missing guide](./images/modren-angular-with-signals.png)](https://www.udemy.com/course/modern-angular-with-signals-the-missing-guide/?couponCode=MISSING_GUIDE_12)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### [NgRx Signal Store for Angular - The missing guide](https://www.udemy.com/course/ngrx-signal-store-the-missing-guide/?couponCode=MISSING_GUIDE_12)
 
-```bash
-ng test
-```
+[![NgRx Signal Store for Angular - The missing guide](./images/ngrx-signal-store.png)](https://www.udemy.com/course/ngrx-signal-store-the-missing-guide/?couponCode=MISSING_GUIDE_12)
 
-## Running end-to-end tests
+### [Theming Angular with Material - The missing guide](https://www.udemy.com/course/theming-angular-and-material-md3-the-missing-guide/?couponCode=MISSING_GUIDE_12)
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+[![Theming Angular with Material - The missing guide](./images/theming-angular-and-material.png)](https://www.udemy.com/course/theming-angular-and-material-md3-the-missing-guide/?couponCode=MISSING_GUIDE_12)
