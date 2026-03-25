@@ -1,12 +1,12 @@
 import { signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
-import { initialDataSlice } from "./data.slice";
 import { updateState, withDevtools } from "@angular-architects/ngrx-toolkit";
 import { computed } from "@angular/core";
+import { initialPsDemoSlice } from "./ps-demo.slice";
 
-export const DataStore = signalStore(
+export const PsDemoStore = signalStore(
     {providedIn: 'root'},
-    withState(initialDataSlice), 
-    withDevtools('Data Store'), 
+    withState(initialPsDemoSlice), 
+    withDevtools('Projected Signal Demo Store'), 
     withComputed(store => ({
         sum: computed(() => store.x() + store.y())
     })),
