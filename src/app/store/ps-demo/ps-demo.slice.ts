@@ -1,9 +1,9 @@
-export interface PsDemoSlice {
+export interface ProjectedSignalDemoSlice {
     readonly x: number;
     readonly y: number;
 }
 
-export const initialPsDemoSlice: PsDemoSlice = {
+export const initialProjectedSignalDemoSlice: ProjectedSignalDemoSlice = {
     x: 5,
     y: 5
 };
