@@ -45,8 +45,8 @@
   "overrides": {
     "@angular-architects/ngrx-toolkit": {
       "@ngrx/signals": "^21.0.1",
-      "@angular/common": "^21.0.0",
-      "@angular/core": "^21.0.0"
+      "@angular/common": "^21.2.5",
+      "@angular/core": "^21.2.5"
     }
   }
 }
