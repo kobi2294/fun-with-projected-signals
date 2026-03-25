@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { projectedSignal } from './lib/projected-signal';
+import { projectedSignal } from './lib/projected-signal/projected-signal';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataStore } from './store/data.store';
