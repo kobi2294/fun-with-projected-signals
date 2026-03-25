@@ -1,6 +1,6 @@
 import { computed, WritableSignal } from "@angular/core";
-import { ProjectedSignal, ProjectedSignalOptions } from "../projected-signal.types";
 import { SIGNAL } from "@angular/core/primitives/signals";
+import { ProjectedSignal, ProjectedSignalOptions } from "./projected-signal.types";
 
 export function projectedSignal<T>(options: ProjectedSignalOptions<T>): ProjectedSignal<T> {
     const internalSignal = computed(options.computation);
