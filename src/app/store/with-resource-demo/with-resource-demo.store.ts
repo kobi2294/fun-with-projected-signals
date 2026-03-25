@@ -1,7 +1,7 @@
 import { updateState, withDevtools, withResource } from "@angular-architects/ngrx-toolkit";
 import { signalStore, withState } from "@ngrx/signals";
 import { initialWithResourceDemoSlice } from "./with-resource-demo.slice";
-import { withDelegateResource } from "../../lib/with-resources/with-delegate-resource";
+import { withResources } from "../../lib/with-resources/with-resource";
 import { delegateResource } from "../../lib/with-resources/delegate-resource";
 import { resource } from "@angular/core";
 import { getContactEntriesForUser } from "./api";
@@ -10,7 +10,7 @@ export const WithResourceDemoStore = signalStore(
     {providedIn: 'root'},
     withState(initialWithResourceDemoSlice), 
     withDevtools('With Resource Demo Store'), 
-    withDelegateResource(store => ({
+    withResources(store => ({
         userContacts: delegateResource({
             resource: resource({
                 params: () => store.userId(),

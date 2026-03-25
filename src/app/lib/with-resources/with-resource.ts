@@ -25,7 +25,7 @@ export type NamedDelegateResourceResult<T extends DelegateResourceDictionary> = 
   };
 };
 
-export function withDelegateResource<
+export function withResources<
   Input extends SignalStoreFeatureResult,
   Dictionary extends DelegateResourceDictionary,
 >(
