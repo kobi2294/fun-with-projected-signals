@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProjectedSignalDemoStore } from './store/ps-demo/ps-demo.store';
 import { getState } from '@ngrx/signals';
-import { form, max, Field } from '@angular/forms/signals';
+import { form, max, FormField } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, FormsModule, Field],
+  imports: [CommonModule, FormsModule, FormField],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

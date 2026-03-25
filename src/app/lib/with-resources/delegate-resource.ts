@@ -1,15 +1,13 @@
-import { Resource, resource, ResourceRef } from "@angular/core"
+import { Resource, resource, ResourceRef, ResourceSnapshot } from "@angular/core"
 
 export interface DelegateResourceOptions<T> {
     readonly resource: Resource<T>;
-    readonly updater: (ref: ResourceRef<T>) => void
+    readonly updater: (ref: ResourceSnapshot<T>) => void
 }
 
-export function delegateResource<T>(config: DelegateResourceOptions<T>) {
-    const x = resource({
-        params: () => 2, 
-        loader: (req) => Promise.resolve(req.params * 2), 
-        defaultValue: 0
-    });
+export interface DelegateResource<T> {
+}
 
+export function delegateResource<T>(config: DelegateResourceOptions<T>): DelegateResource<T> {
+    return {}
 }
