@@ -6,32 +6,33 @@ import { delegateResource } from '../../lib/with-resources/delegate-resource';
 import { resource } from '@angular/core';
 import { getContactEntriesForUser } from './api';
 import { ContactsApiResponse } from './models';
+import {
+  composeUpdaters,
+  onError,
+  onLoading,
+  onResolved,
+} from '../../lib/with-resources/delegate-resource-updaters';
+import { setContacts, setContactsError, setLoadingContacts } from './with-resource-demo.updaters';
 
 export const WithResourceDemoStore = signalStore(
   { providedIn: 'root' },
   withState(initialWithResourceDemoSlice),
   withDevtools('With Resource Demo Store'),
   withResources((store) => ({
-    userContacts: delegateResource({
-      resource: resource({
+    userContacts: delegateResource(
+      resource({
         params: () => store.userId(),
         loader: (req) => getContactEntriesForUser(req.params),
-        defaultValue: { contacts: [] },        
+        defaultValue: { contacts: [] },
       }),
-      updater: (snapshot) => {
-        if (snapshot.status === 'resolved' && snapshot.value) {
-          const contacts = snapshot.value.contacts.map(
-            (entry) => [entry.type, entry.value] as const,
-          );
-          const details = Object.fromEntries(contacts);
-          updateState(store, 'userContactDetails', details, { isLoadingUserContacts: false });
-        } else if (snapshot.status === 'loading') {
-          updateState(store, 'isLoadingUserContacts', { isLoadingUserContacts: true });
-        }
-      },
-    }),
+      composeUpdaters(
+        onResolved(setContacts),
+        onLoading(setLoadingContacts),
+        onError(setContactsError),
+      ),
+    ),
   })),
-  withMethods(store => ({
+  withMethods((store) => ({
     refreshContacts: () => store._userContactsReload(),
-  }))
+  })),
 );
