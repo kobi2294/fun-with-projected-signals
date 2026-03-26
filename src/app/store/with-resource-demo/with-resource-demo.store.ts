@@ -26,9 +26,9 @@ export const WithResourceDemoStore = signalStore(
         defaultValue: { contacts: [] },
       }),
       composeUpdaters(
-        onResolved(setContacts),
-        onLoading(setLoadingContacts),
-        onError(setContactsError),
+        onResolved(val => updateState(store, 'Contacts Loaded', setContacts(val))),
+        onLoading(() => updateState(store, 'Loading Contacts', setLoadingContacts())),
+        onError(err => updateState(store, 'Error Loading Contacts', setContactsError(err))),
       ),
     ),
   })),

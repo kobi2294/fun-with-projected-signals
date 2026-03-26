@@ -1,7 +1,11 @@
 import { PartialStateUpdater } from "@ngrx/signals";
 import { DelegateResourceUpdater } from "./delegate-resource";
 
-export function onResolved<T, STATE extends object>(action: (val : T) => PartialStateUpdater<STATE>)
+type Resolver<T> = (val: T) => void;
+type Loader = () => void;
+type ErrorHandler = (err: unknown) => void;
+
+export function onResolved<T>(action: Resolver<T>)
     : DelegateResourceUpdater<T> {
         return (snapshot) => {
             if (snapshot.status === 'resolved' && snapshot.value) {
@@ -10,7 +14,7 @@ export function onResolved<T, STATE extends object>(action: (val : T) => Partial
         }
 }
 
-export function onLoading<T, STATE extends object>(action: () => PartialStateUpdater<STATE>)
+export function onLoading<T>(action: Loader)
     : DelegateResourceUpdater<T> {
         return (snapshot) => {
             if ((snapshot.status === 'loading') || (snapshot.status === 'reloading')) {
@@ -19,7 +23,7 @@ export function onLoading<T, STATE extends object>(action: () => PartialStateUpd
         }
 }
 
-export function onError<T, STATE extends object>(action: (err: unknown) => PartialStateUpdater<STATE>)
+export function onError<T>(action: ErrorHandler)
     : DelegateResourceUpdater<T> {
         return (snapshot) => {
             if (snapshot.status === 'error') {
