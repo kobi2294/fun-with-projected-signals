@@ -15,9 +15,9 @@ export type DelegateResourceResult = {
   };
 };
 
-export type DelegateResourceDictionary = Record<string, DelegateResource<any>>;
+export type DelegateResourceDictionary<STATE extends object> = Record<string, DelegateResource<any, STATE>>;
 
-export type NamedDelegateResourceResult<T extends DelegateResourceDictionary> = {
+export type NamedDelegateResourceResult<STATE extends object, T extends DelegateResourceDictionary<STATE>> = {
   state: {};
   props: {};
   methods: {
@@ -27,7 +27,7 @@ export type NamedDelegateResourceResult<T extends DelegateResourceDictionary> = 
 
 export function withResources<
   Input extends SignalStoreFeatureResult,
-  Dictionary extends DelegateResourceDictionary,
+  Dictionary extends DelegateResourceDictionary<Input['state']>,
 >(
   factory: (
     store: Prettify<
@@ -37,6 +37,6 @@ export function withResources<
         WritableStateSource<Input['state']>
     >,
   ) => Dictionary,
-): SignalStoreFeature<Input, NamedDelegateResourceResult<Dictionary>> {
+): SignalStoreFeature<Input, NamedDelegateResourceResult<Input['state'], Dictionary>> {
   throw new Error('Not implemented');
 }
