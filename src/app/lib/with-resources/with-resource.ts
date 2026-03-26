@@ -7,7 +7,7 @@ import {
 } from '@ngrx/signals';
 import { DelegateResource } from './delegate-resource';
 
-export type DelegateResourceResult<T> = {
+export type DelegateResourceResult = {
   state: {};
   props: {};
   methods: {
@@ -15,7 +15,7 @@ export type DelegateResourceResult<T> = {
   };
 };
 
-export type DelegateResourceDictionary = Record<string, DelegateResource<unknown>>;
+export type DelegateResourceDictionary = Record<string, DelegateResource<any>>;
 
 export type NamedDelegateResourceResult<T extends DelegateResourceDictionary> = {
   state: {};
