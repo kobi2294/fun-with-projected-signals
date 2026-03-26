@@ -7,7 +7,7 @@ import { resource } from '@angular/core';
 import { getContactEntriesForUser } from './api';
 import { ContactsApiResponse } from './models';
 import {
-  composeUpdaters,
+  updaters,
   onError,
   onLoading,
   onResolved,
@@ -25,7 +25,7 @@ export const WithResourceDemoStore = signalStore(
         loader: (req) => getContactEntriesForUser(req.params),
         defaultValue: { contacts: [] },
       }),
-      composeUpdaters(
+      updaters(
         onResolved(val => updateState(store, 'Contacts Loaded', setContacts(val))),
         onLoading(() => updateState(store, 'Loading Contacts', setLoadingContacts())),
         onError(err => updateState(store, 'Error Loading Contacts', setContactsError(err))),

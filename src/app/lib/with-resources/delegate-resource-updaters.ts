@@ -32,7 +32,7 @@ export function onError<T>(action: ErrorHandler)
         }
 }
 
-export function composeUpdaters<T>(...updaters: DelegateResourceUpdater<T>[]): DelegateResourceUpdater<T> {
+export function updaters<T>(...updaters: DelegateResourceUpdater<T>[]): DelegateResourceUpdater<T> {
     return (snapshot) => {
         for (const updater of updaters) {
             updater(snapshot);
